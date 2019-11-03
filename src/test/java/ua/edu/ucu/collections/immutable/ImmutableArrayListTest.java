@@ -43,7 +43,8 @@ public class ImmutableArrayListTest {
         
         assertArrayEquals(newArrayLList2.toArray(), what_I_want);
         Object [] what_I_want2 = {1,111,222, 2,22,3,111,222};
-        newArrayLList2=newArrayLList2.addAll(1,t);
+      newArrayLList2=newArrayLList2.add(1,t[0]);
+        newArrayLList2=newArrayLList2.add(1,t[1]);
 
         assertArrayEquals(newArrayLList2.toArray(), what_I_want2);
         Object [] what_I_want3 = {9,111,222, 2,22,3,111,222};
