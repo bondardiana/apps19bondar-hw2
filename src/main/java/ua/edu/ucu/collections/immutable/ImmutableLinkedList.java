@@ -64,8 +64,16 @@ public class ImmutableLinkedList implements ImmutableList{
         }
 
         else{
+
             ImmutableLinkedList new_l = create_new();
             Node cur_node = new_l.head;
+            if (value==0){
+
+                Node fut_node = new Node(el);
+                new_l.head =fut_node;
+                new_l.head.next=cur_node;
+
+            }
             for (int counter = 0; counter < value-1; counter++){
                 cur_node=cur_node.next;
             }
@@ -83,7 +91,6 @@ public class ImmutableLinkedList implements ImmutableList{
     public ImmutableLinkedList addAll(Object[] c) {
         ImmutableLinkedList newList = add(c[0]);
         for (int i = 1; i < c.length; i++) {
-            System.out.println("4");
             newList = newList.add(c[i]);
         }
         return newList;
@@ -94,7 +101,6 @@ public class ImmutableLinkedList implements ImmutableList{
         ImmutableLinkedList newList = add(index, c[0]);
         for (int i = 1; i < c.length; i++) {
             index+=1;
-            System.out.println(index);
             newList = newList.add(index, c[i]);
         }
         return newList;

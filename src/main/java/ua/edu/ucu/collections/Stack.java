@@ -21,6 +21,7 @@ public class Stack {
 
     void push(Object e) {
         list = list.add(0, e);
+        System.out.println(list.toString());
     }
 
 

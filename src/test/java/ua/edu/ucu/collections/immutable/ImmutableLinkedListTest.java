@@ -6,57 +6,157 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class ImmutableLinkedListTest {
-    private ImmutableLinkedList newLinkedList1;
-    private ImmutableLinkedList newLinkedList2;
 
-    @Before
-    public void SetUp() {
-        newLinkedList1 = new ImmutableLinkedList();
-        String[] IntList = {"1", "2", "3", "4", "5"};
-        newLinkedList2 = new ImmutableLinkedList();
-        newLinkedList2=newLinkedList2.add(1);
-        newLinkedList2=newLinkedList2.add(2);
-        newLinkedList2=newLinkedList2.add(3);
-        newLinkedList2=newLinkedList2.add(4);
+ @Test
+public void testempty(){
+
+     ImmutableLinkedList newll1 = new ImmutableLinkedList();
+     assertEquals(newll1.size, 0);
+     assertEquals(newll1.isEmpty(), true);
+     assertNull(newll1.head);
+ }
+
+    @Test
+    public void testaddingone(){
+        ImmutableLinkedList newll1 = new ImmutableLinkedList();
+
+        for (int i=0; i<5; i++) {
+            newll1 = newll1.add(i);
+        }
+        assertEquals(newll1.size, 5);
+
+        newll1=newll1.add(3, 10);
+
+        assertEquals(newll1.size, 6);
+        assertEquals(newll1.head.value, 0);
+        assertEquals(newll1.get(3), 10);
+        try{
+            newll1=newll1.add(-1, 88);
+        }
+        catch(IndexOutOfBoundsException e){
+
+            assertTrue(true);
+        }
+
+    }
+    @Test
+    public void testaddall(){
+        ImmutableLinkedList newll1 = new ImmutableLinkedList();
+        Object []arr = {111,222,333};
+        Object []arr2 ={7777, 777, 77, 7};
+        for (int i=0; i<5; i++) {
+            newll1 = newll1.addAll(arr);
+        }
+        assertEquals(newll1.size, 15);
+
+        newll1=newll1.addAll(1, arr2);
+
+        assertEquals(newll1.size, 19);
+        assertEquals(newll1.head.value, 111);
+        assertEquals(newll1.get(3), 77);
+        try{
+            newll1=newll1.addAll(-1, arr);
+        }
+        catch(IndexOutOfBoundsException e){
+
+            assertTrue(true);
+        }
     }
 
     @Test
-    public void testImmutableLinkedList() {
-        assertNull(newLinkedList1.head);
-        assertEquals(newLinkedList1.isEmpty(), true);
-        assertEquals(newLinkedList1.size, 0);
-    }
+    public void testremove(){
+        ImmutableLinkedList newll1 = new ImmutableLinkedList();
+        Object []arr = {111, 222,333};
+        Object []arr2 ={7777, 777, 77, 7};
+        for (int i=0; i<2; i++) {
+            newll1 = newll1.addAll(arr);
+            newll1 = newll1.addAll(arr2);
+        }
 
+        assertEquals(newll1.size, 14);
+
+        for (int i=0; i<10; i++){
+            newll1=newll1.remove(4);
+        }
+
+
+        assertEquals(newll1.size, 4);
+        assertEquals(newll1.head.value, 111);
+        assertEquals(newll1.get(3), 7777);
+
+        try{
+            newll1=newll1.remove(444);
+        }
+        catch(IndexOutOfBoundsException e){
+
+            assertTrue(true);
+        }
+
+    }
 
     @Test
-    public void testImmutableLinkedListWithEls() {
-        assertEquals(1, newLinkedList2.head.value);
-        assertEquals(4, newLinkedList2.size());
-        newLinkedList2=newLinkedList2.add(2, 22);
-        assertEquals(22, newLinkedList2.get(2));
-        newLinkedList2=newLinkedList2.remove(4);
-        assertEquals(3, newLinkedList2.get(3));
-        Object [] t ={111, 222};
-        Object [] what_I_want ={1, 2,22,3,111,222};
-        newLinkedList2= newLinkedList2.addAll(t);
-        assertArrayEquals(newLinkedList2.toArray(), what_I_want);
-        Object [] what_I_want2 = {1,111,222, 2,22,3,111,222};
-        newLinkedList2= newLinkedList2.addAll(1,t);
+    public void testset(){
 
-        assertArrayEquals(newLinkedList2.toArray(), what_I_want2);
-        Object [] what_I_want3 = {9,111,222, 2,22,3,111,222};
-//        newLinkedList2=newLinkedList2.set(0,9);
-//        assertArrayEquals(newLinkedList2.toArray(), what_I_want3);
-        assertEquals(newLinkedList2.indexOf(111), 1);
-        newLinkedList2=newLinkedList2.clear();
-        assertNull(newLinkedList2.head);
-        assertEquals(newLinkedList2.isEmpty(), true);
-        assertEquals(newLinkedList2.size, 0);
+     ImmutableLinkedList newll1 = new ImmutableLinkedList();
+        for (int i=0; i<7; i++) {
+            newll1 = newll1.add(i);
+        }
+        newll1=newll1.set(5, 55);
+        assertEquals(newll1.size, 7);
+        assertEquals(newll1.get(5), 55);
+
+        try{
+            newll1=newll1.set(-1, 9);
+        }
+        catch(IndexOutOfBoundsException e){
+
+            assertTrue(true);
+        }
+  }
+
+    @Test
+    public void testindexof(){
+        ImmutableLinkedList newll1 = new ImmutableLinkedList();
+        for (int i=0; i<7; i++) {
+            newll1 = newll1.add(i);
+        }
+        assertEquals(newll1.indexOf(3), 3);
+        assertEquals(newll1.indexOf(7), -1);
 
 
     }
+    @Test
+    public void testclear(){
+        ImmutableLinkedList newll1 = new ImmutableLinkedList();
+        for (int i=0; i<7; i++) {
+            newll1 = newll1.add(i);
+        }
+        newll1=newll1.clear();
+        assertEquals(newll1.size, 0);
+    }
+
+    @Test
+    public void testtoarr(){
+     Object [] arr={0,1,2,3,4,5,6};
+        ImmutableLinkedList newll1 = new ImmutableLinkedList();
+        for (int i=0; i<7; i++) {
+            newll1 = newll1.add(i);
+        }
+        Object [] arr2 = newll1.toArray();
+        assertArrayEquals(arr2, arr);
+    }
+    @Test
+    public void testtostring(){
+        String line="0, 1, 2, 3, 4, 5, 6";
+        ImmutableLinkedList newll1 = new ImmutableLinkedList();
+        for (int i=0; i<7; i++) {
+            newll1 = newll1.add(i);
+        }
+        String line2= newll1.toString();
+        assertEquals(line, line2);
+    }
+    }
 
 
-}
 
 
