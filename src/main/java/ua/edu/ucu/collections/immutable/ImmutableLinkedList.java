@@ -197,7 +197,7 @@ public class ImmutableLinkedList implements ImmutableList{
         Node cur_n = head;
         int counter =0;
         while (cur_n != null) {
-            if (cur_n.value == element) {
+            if (cur_n.value.equals(element)) {
                 return counter;
             }
             cur_n = cur_n.next;
@@ -236,8 +236,3 @@ public class ImmutableLinkedList implements ImmutableList{
     }
 
 }
-
-
-
-
-
