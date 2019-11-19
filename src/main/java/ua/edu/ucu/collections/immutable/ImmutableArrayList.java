@@ -52,15 +52,16 @@ public class ImmutableArrayList implements ImmutableList {
             throw new IndexOutOfBoundsException();
         }
         Object[] newArr = new Object[elements.length + c.length];
-        for (int i=0; i < elements.length+1; i+=1){
+        for (int i=0; i < elements.length + c.length; i+=1){
             if (i<index) {
                 newArr[i] = elements[i];
             }
-            else if (i >= index + c.length){
-                newArr[i]= elements[i-index];
+            else if (i < c.length + index){
+                newArr[i]= c[i-index];
             }
             else{
-                newArr[i] = c[i-index];
+
+                newArr[i] = elements[i-c.length];
             }
         }
         return new ImmutableArrayList(newArr);
@@ -83,9 +84,10 @@ public class ImmutableArrayList implements ImmutableList {
                 newArr[i] = elements[i];
             }
             if (i > index){
-                newArr[i-1]= elements[i-1];
+                newArr[i-1]= elements[i];
             }
         }
+
         return new ImmutableArrayList(newArr);
     }
 
@@ -102,7 +104,7 @@ public class ImmutableArrayList implements ImmutableList {
     public int indexOf(Object e) {
         for (int i = 0; i < elements.length; i++) {
 
-            if (elements[i] == e) {
+            if (elements[i].equals(e)) {
                 return i;
             }
         }
@@ -139,9 +141,9 @@ public class ImmutableArrayList implements ImmutableList {
         String line ="";
         if (elements.length>0)
        {
-           line+=elements[0];
+            line+=elements[0];
            for (int i=1; i<elements.length; i++){
-            line+= ", " +elements[i].toString();
+            line+= ", " +elements[i];
         }
        }
         return line;
